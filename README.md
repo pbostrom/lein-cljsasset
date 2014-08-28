@@ -1,14 +1,16 @@
 # lein-pprint
 
-Pretty-print a representation of the project map.
-
-This is a sample of how a simple plugin would work.
+Manage dependencies for ClojureScript projects.
 
 ## Usage
 
-Add `[lein-pprint "1.1.1"]` to `:plugins`.
+### Resolve and concatenate JavaScript and CSS dependencies into a single file
 
-    $ lein pprint
+Add `[lein-cljsasset "0.1.0-SNAPSHOT"]` to `:plugins`.
+
+    $ lein cljsasset
+    
+### Declare JavaScript and CSS dependencies for your ClojureScript library
 
 ```clj
 {:compile-path "/home/phil/src/leiningen/lein-pprint/classes",
@@ -36,6 +38,6 @@ Add `[lein-pprint "1.1.1"]` to `:plugins`.
 
 ## License
 
-Copyright © 2012 Phil Hagelberg
+Copyright © 2014 Paul Bostrom
 
 Distributed under the Eclipse Public License, the same as Clojure.
