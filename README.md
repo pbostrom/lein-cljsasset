@@ -26,9 +26,9 @@ Add a `:cljsasset` section in `project.clj`:
            ["META-INF/resources/webjars/codemirror/4.6/lib/codemirror.css"]}
 ```
 
-Now your users can use the lein-cljsasset plugin to fetch the dependencies and concatenate them into a single file for use in their application.
+Now your users can use the lein-cljsasset plugin to fetch the dependencies and concatenate them into a single file for use in their application. It might be a good idea to include (or link) the section below in your library's README.
 
-### Library users: Resolve and concatenate JavaScript and CSS dependencies (which are declared by your ClojureScript dependencies) into single file(s).
+### Library users: Resolve and concatenate JavaScript and CSS dependencies into single file(s).
 
 Add the desired ClojureScript library to your `:dependencies` section in `project.clj`:
 ```clj
@@ -43,31 +43,11 @@ Add `[lein-cljsasset "0.1.0"]` to `:plugins` in your `project.clj` or `profiles.
               :css-output {:dir "resources/css"
                            :file "assets.css"}}
 ```
-Now you can run the lein plugin:
+Run the lein plugin:
 
     $ lein cljsasset
     
-And your concatenated assets will be available for use by your application.
-    
-### Declare JavaScript and CSS dependencies for your ClojureScript library
-
-```clj
-(defproject om-codemirror-lib "0.2.0-SNAPSHOT"
-  ...
-  :dependencies [[org.clojure/clojure "1.6.0"]
-                 [org.clojure/clojurescript "0.0-2322"]
-                 [org.webjars/codemirror "4.3"]
-                 [om "0.7.3"]]
-
-  :cljsasset {:js
-              ["META-INF/resources/webjars/codemirror/4.3/lib/codemirror.js"
-               "META-INF/resources/webjars/codemirror/4.3/mode/clojure/clojure.js"
-               "META-INF/resources/webjars/codemirror/4.3/addon/edit/closebrackets.js"
-               "META-INF/resources/webjars/codemirror/4.3/addon/edit/matchbrackets.js"]
-              :css
-              ["META-INF/resources/webjars/codemirror/4.3/lib/codemirror.css"]})
-
-```
+Now all of the JavaScript and CSS dependencies will be concatenated in the specified files.
 
 ## License
 
