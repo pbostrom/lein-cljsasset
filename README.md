@@ -2,8 +2,8 @@
 
 Manage JavaScript/CSS dependencies for ClojureScript projects.
 
-_**Library authors**_ can declare dependencies on JavaScript and CSS assets in the project.clj file.
-_**Library consumers**_ can resolve and concatenate JavaScript and CSS dependencies into single file(s) to include in their application.
+* _**Library authors**_ can declare dependencies on JavaScript and CSS assets in the project.clj file.
+* _**Library users**_ can resolve and concatenate JavaScript and CSS dependencies into single file(s) to include in their application.
 
 ## Usage
 
@@ -21,14 +21,14 @@ Add a `:cljsasset` section in `project.clj`:
 :cljsasset {:js
            ["react/react.js"    ; from com.facebook/react
             "META-INF/resources/webjars/codemirror/4.6/lib/codemirror.js" ; from org.webjars/codemirror
-            "META-INF/resources/webjars/codemirror/4.6/mode/clojure/clojure.js"
-            "META-INF/resources/webjars/codemirror/4.6/addon/edit/closebrackets.js"
-            "META-INF/resources/webjars/codemirror/4.6/addon/edit/matchbrackets.js"]
+            "META-INF/resources/webjars/codemirror/4.6/mode/clojure/clojure.js"]
            :css
            ["META-INF/resources/webjars/codemirror/4.6/lib/codemirror.css"]}
 ```
 
-### Library consumers: Resolve and concatenate JavaScript and CSS dependencies (which are declared by your ClojureScript dependencies) into single file(s).
+Now your users can use the lein-cljsasset plugin to fetch the dependencies and concatenate them into a single file for use in their application.
+
+### Library users: Resolve and concatenate JavaScript and CSS dependencies (which are declared by your ClojureScript dependencies) into single file(s).
 
 Add the desired ClojureScript library to your `:dependencies` section in `project.clj`:
 ```clj
