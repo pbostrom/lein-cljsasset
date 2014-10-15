@@ -15,7 +15,7 @@
   (write-output css (get-in project [:cljsasset :css-output])))
 
 (defn cljsasset
-  "Pretty-print a representation of the project map."
+  "Process assets and write to output files."
   [project & keys]
   (let [deps (map (comp str first) (:dependencies project))
         assets (eval-in-project
