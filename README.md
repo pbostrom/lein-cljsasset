@@ -7,7 +7,7 @@ Manage JavaScript/CSS dependencies for ClojureScript projects.
 
 ## Usage
 
-### Library authors: Declare dependencies on JavaScript and CSS assets in the project.clj file.
+#### Library authors: Declare dependencies on JavaScript and CSS assets in the project.clj file.
 
 Add any JavaScript library available in a Maven repository to your `:dependencies` section in `project.clj`:
 
@@ -28,7 +28,7 @@ Add a `:cljsasset` section in `project.clj`:
 
 Now your users can use the lein-cljsasset plugin to fetch the dependencies and concatenate them into a single file for use in their application. It might be a good idea to include (or link) the section below in your library's README.
 
-### Library users: Resolve and concatenate JavaScript and CSS dependencies into single file(s).
+#### Library users: Resolve and concatenate JavaScript and CSS dependencies into single file(s).
 
 Add the ClojureScript libraries to your `:dependencies` section in `project.clj`:
 ```clj
@@ -55,7 +55,6 @@ If you wish to change the default path of the output files, then add a `:cljsass
             :css-output {:dir "resources/public/my-css"
                            :file "my-assets.css"}}
 ```
-
 ## License
 
 Copyright © 2014 Paul Bostrom
