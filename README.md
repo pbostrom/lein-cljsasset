@@ -38,7 +38,7 @@ Add the ClojureScript libraries to your `:dependencies` section in `project.clj`
 
 Add this plugin to the `:plugins` section in your `project.clj`:
 ```clj
-:plugins [lein-cljsasset "0.1.0"]
+:plugins [[lein-cljsasset "0.1.0"]]
 ```
 
 Then just run the lein plugin:
