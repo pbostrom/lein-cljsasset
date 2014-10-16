@@ -10,9 +10,16 @@
   (let [content (reduce (fn [acc res] (str acc (slurp (io/resource res)))) "" assets)]
     (spit (str dir "/" file) content)))
 
+(def default-js {:dir "resources/public/js"
+                 :file "assets.js"})
+(def default-css {:dir "resources/public/css"
+                  :file "assets.css"})
+
 (defn write-assets [{:keys [js css]} project]
-  (write-output js (get-in project [:cljsasset :js-output]))
-  (write-output css (get-in project [:cljsasset :css-output])))
+  (when (seq js)
+    (write-output js (get-in project [:cljsasset :js-output] default-js)))
+  (when (seq css)
+    (write-output css (get-in project [:cljsasset :css-output] default-css))))
 
 (defn cljsasset
   "Process assets and write to output files."

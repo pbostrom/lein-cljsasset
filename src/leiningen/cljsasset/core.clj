@@ -1,7 +1,7 @@
 (ns leiningen.cljsasset.core
   (:require [clojure.java.io :as io]))
 
-(def lein-cljsasset-version "0.1.0-SNAPSHOT")
+(def lein-cljsasset-version "0.1.0")
 
 (defn read-project
   "Returns a vector of forms read from project.clj"
