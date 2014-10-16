@@ -1,41 +1,62 @@
-# lein-pprint
+# lein-cljsasset
 
-Pretty-print a representation of the project map.
+Manage JavaScript/CSS dependencies for ClojureScript projects.
 
-This is a sample of how a simple plugin would work.
+* _**Library authors**_ can declare dependencies on JavaScript and CSS assets in the project.clj file.
+* _**Library users**_ can resolve and concatenate JavaScript and CSS dependencies into single file(s) to include in their application.
 
 ## Usage
 
-Add `[lein-pprint "1.1.1"]` to `:plugins`.
+#### Library authors: Declare dependencies on JavaScript and CSS assets in the project.clj file.
 
-    $ lein pprint
+Add any JavaScript library available in a Maven repository to your `:dependencies` section in `project.clj`:
 
 ```clj
-{:compile-path "/home/phil/src/leiningen/lein-pprint/classes",
- :group "lein-pprint",
- :source-path ("/home/phil/src/leiningen/lein-pprint/src"),
- :dependencies nil,
- :target-path "/home/phil/src/leiningen/lein-pprint/target",
- :name "lein-pprint",
- :root "/home/phil/src/leiningen/lein-pprint",
- :version "1.0.0",
- :jar-exclusions [#"^\."],
- :test-path ("/home/phil/src/leiningen/lein-pprint/test"),
- :repositories
- (["central" {:url "http://repo1.maven.org/maven2"}]
-  ["clojars" {:url "http://clojars.org/repo/"}]),
- :uberjar-exclusions [#"^META-INF/DUMMY.SF"],
- :eval-in :leiningen,
- :plugins [[lein-swank "1.4.0-SNAPSHOT"]],
- :resources-path
- ("/home/phil/src/leiningen/lein-pprint/dev-resources"
-  "/home/phil/src/leiningen/lein-pprint/resources"),
- :native-path "/home/phil/src/leiningen/lein-pprint/native",
- :description "Pretty-print a representation of the project map."}
+:dependencies [[org.webjars/codemirror "4.6"]  ; available on WebJars
+               [com.facebook/react "0.11.1"]]  ; available on Clojars
 ```
 
+Add a `:cljsasset` section in `project.clj`:
+```clj
+:cljsasset {:js
+            ["react/react.js"    ; from com.facebook/react
+             "META-INF/resources/webjars/codemirror/4.6/lib/codemirror.js" ; from org.webjars/codemirror
+             "META-INF/resources/webjars/codemirror/4.6/mode/clojure/clojure.js"]
+            :css
+            ["META-INF/resources/webjars/codemirror/4.6/lib/codemirror.css"]}
+```
+
+Now your users can use the lein-cljsasset plugin to fetch the dependencies and concatenate them into a single file for use in their application. It might be a good idea to include (or link) the section below in your library's README.
+
+#### Library users: Resolve and concatenate JavaScript and CSS dependencies into single file(s).
+
+Add the ClojureScript libraries to your `:dependencies` section in `project.clj`:
+```clj
+:dependencies [[om-codemirror "0.2.0-SNAPSHOT"]
+               [om "0.7.3"]]
+```
+
+Add this plugin to the `:plugins` section in your `project.clj`:
+```clj
+:plugins [[lein-cljsasset "0.1.0"]]
+```
+
+Then just run the lein plugin:
+
+    $ lein cljsasset
+
+By default this will concatenate all JavaScript dependencies to `resources/public/js/assets.js` and CSS dependencies to `resources/public/css/assets.css`.
+
+If you wish to change the default path of the output files, then add a `:cljsasset` section in your project.clj file that looks something like this:
+
+```clj
+:cljsasset {:js-output {:dir "resources/public/my-js"
+                          :file "my-assets.js"}
+            :css-output {:dir "resources/public/my-css"
+                           :file "my-assets.css"}}
+```
 ## License
 
-Copyright © 2012 Phil Hagelberg
+Copyright © 2014 Paul Bostrom
 
 Distributed under the Eclipse Public License, the same as Clojure.
