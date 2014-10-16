@@ -1,7 +1,7 @@
 (ns leiningen.cljsasset
   (:require [clojure.pprint :as pprint]
             [leiningen.core.eval :refer [eval-in-project]]
-            [leiningen.cljsasset.core :refer [lein-cljsasset-version]]
+            [leiningen.cljsasset.core :refer [lein-cljsasset-version conj-assets]]
             [me.raynes.fs :as fs]
             [clojure.java.io :as io]))
 
@@ -15,11 +15,12 @@
 (def default-css {:dir "resources/public/css"
                   :file "assets.css"})
 
-(defn write-assets [{:keys [js css]} project]
-  (when (seq js)
-    (write-output js (get-in project [:cljsasset :js-output] default-js)))
-  (when (seq css)
-    (write-output css (get-in project [:cljsasset :css-output] default-css))))
+(defn write-assets [assets project]
+  (let [{:keys [js css]} (conj-assets assets (:cljsasset project))]
+    (when (seq js)
+      (write-output js (get-in project [:cljsasset :js-output] default-js)))
+    (when (seq css)
+      (write-output css (get-in project [:cljsasset :css-output] default-css)))))
 
 (defn cljsasset
   "Process assets and write to output files."

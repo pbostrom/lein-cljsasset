@@ -1,4 +1,4 @@
-(defproject lein-cljsasset "0.1.0"
+(defproject lein-cljsasset "0.2.0"
   :description "Fetch JavaScript/CSS dependencies for ClojureScript libraries"
   :url "https://github.com/pbostrom/lein-cljsasset"
   :license {:name "Eclipse"

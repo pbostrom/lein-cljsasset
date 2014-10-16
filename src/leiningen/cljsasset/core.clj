@@ -1,17 +1,18 @@
 (ns leiningen.cljsasset.core
   (:require [clojure.java.io :as io]))
 
-(def lein-cljsasset-version "0.1.0")
+(def lein-cljsasset-version "0.2.0")
 
 (defn read-project
   "Returns a vector of forms read from project.clj"
   [resource]
-  (loop [pbr (java.io.PushbackReader. (io/reader resource))
-         nxt (read pbr false :EOF)
-         forms []]
-    (if (= nxt :EOF)
-      forms
-      (recur pbr (read pbr false :EOF) (conj forms nxt)))))
+  (binding [*read-eval* false]
+    (loop [pbr (java.io.PushbackReader. (io/reader resource))
+           nxt (read pbr false :EOF)
+           forms []]
+      (if (= nxt :EOF)
+        forms
+        (recur pbr (read pbr false :EOF) (conj forms nxt))))))
 
 (defn get-project [group-artifact]
   (when-let [resource (io/resource (str "META-INF/leiningen/" group-artifact "/project.clj"))]
