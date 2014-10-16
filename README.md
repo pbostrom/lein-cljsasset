@@ -30,24 +30,31 @@ Now your users can use the lein-cljsasset plugin to fetch the dependencies and c
 
 ### Library users: Resolve and concatenate JavaScript and CSS dependencies into single file(s).
 
-Add the desired ClojureScript library to your `:dependencies` section in `project.clj`:
+Add the ClojureScript libraries to your `:dependencies` section in `project.clj`:
 ```clj
-:dependencies [[om-codemirror "0.2.0-SNAPSHOT"]]
+:dependencies [[om-codemirror "0.2.0-SNAPSHOT"]
+               [om "0.7.3"]]
 ```
 
-Add `[lein-cljsasset "0.1.0"]` to `:plugins` in your `project.clj` or `profiles.clj`. Then add a `:cljsasset` section in your project.clj file that looks something like this:
-
+Add this plugin to the `:plugins` section in your `project.clj`:
 ```clj
-:cljsasset {:js-output {:dir "resources/js"
-                          :file "assets.js"}
-              :css-output {:dir "resources/css"
-                           :file "assets.css"}}
+:plugins [lein-cljsasset "0.1.0"]
 ```
-Run the lein plugin:
+
+Then just run the lein plugin:
 
     $ lein cljsasset
-    
-Now all of the JavaScript and CSS dependencies will be concatenated in the specified files.
+
+By default this will concatenate all JavaScript dependencies to `resources/public/js/assets.js` and CSS dependencies to `resources/public/css/assets.css`.
+
+If you wish to change the default path of the output files, then add a `:cljsasset` section in your project.clj file that looks something like this:
+
+```clj
+:cljsasset {:js-output {:dir "resources/public/my-js"
+                          :file "my-assets.js"}
+            :css-output {:dir "resources/public/my-css"
+                           :file "my-assets.css"}}
+```
 
 ## License
 
