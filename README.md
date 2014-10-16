@@ -19,11 +19,11 @@ Add any JavaScript library available in a Maven repository to your `:dependencie
 Add a `:cljsasset` section in `project.clj`:
 ```clj
 :cljsasset {:js
-           ["react/react.js"    ; from com.facebook/react
-            "META-INF/resources/webjars/codemirror/4.6/lib/codemirror.js" ; from org.webjars/codemirror
-            "META-INF/resources/webjars/codemirror/4.6/mode/clojure/clojure.js"]
-           :css
-           ["META-INF/resources/webjars/codemirror/4.6/lib/codemirror.css"]}
+            ["react/react.js"    ; from com.facebook/react
+             "META-INF/resources/webjars/codemirror/4.6/lib/codemirror.js" ; from org.webjars/codemirror
+             "META-INF/resources/webjars/codemirror/4.6/mode/clojure/clojure.js"]
+            :css
+            ["META-INF/resources/webjars/codemirror/4.6/lib/codemirror.css"]}
 ```
 
 Now your users can use the lein-cljsasset plugin to fetch the dependencies and concatenate them into a single file for use in their application. It might be a good idea to include (or link) the section below in your library's README.
