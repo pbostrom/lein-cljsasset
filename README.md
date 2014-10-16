@@ -55,6 +55,14 @@ If you wish to change the default path of the output files, then add a `:cljsass
             :css-output {:dir "resources/public/my-css"
                            :file "my-assets.css"}}
 ```
+
+## Examples
+[om-codemirror](https://github.com/pbostrom/om-codemirror) is a library that provides an Om wrapper around the CodeMirror text editor. It declares dependencies on several JavaScript and CSS assets provided by CodeMirror.
+
+[om-editor-app](https://github.com/pbostrom/om-editor-app) is an app that depends on `om-codemirror` and uses `lein-cljsasset` to fetch the JavaScript and CSS assets.
+
+Also see my fork of Om, which is just a single [commit](https://github.com/pbostrom/om/commit/dbcc4a2b567c851bb00763d98130558599e8ec5e) that adds a `:cljsasset` section. The `om-editor-app` listed above uses this version to avoid having to manage the react.js dependency directly.
+
 ## License
 
 Copyright © 2014 Paul Bostrom
