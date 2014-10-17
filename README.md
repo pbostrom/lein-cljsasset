@@ -32,7 +32,7 @@ Now your users can use the lein-cljsasset plugin to fetch the dependencies and c
 
 Add the ClojureScript libraries you want to use to your `:dependencies` section in `project.clj`:
 ```clj
-:dependencies [[om-codemirror "0.2.0"]]
+:dependencies [[om-codemirror "0.2.1"]]
 ```
 
 Add this plugin to the `:plugins` section in your `project.clj`:
