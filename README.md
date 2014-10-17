@@ -30,18 +30,17 @@ Now your users can use the lein-cljsasset plugin to fetch the dependencies and c
 
 #### Library users: Resolve and concatenate JavaScript and CSS dependencies into single file(s).
 
-Add the ClojureScript libraries to your `:dependencies` section in `project.clj`:
+Add the ClojureScript libraries you want to use to your `:dependencies` section in `project.clj`:
 ```clj
-:dependencies [[om-codemirror "0.2.0-SNAPSHOT"]
-               [om "0.7.3"]]
+:dependencies [[om-codemirror "0.2.0"]]
 ```
 
 Add this plugin to the `:plugins` section in your `project.clj`:
 ```clj
-:plugins [[lein-cljsasset "0.1.0"]]
+:plugins [[lein-cljsasset "0.2.0"]]
 ```
 
-Then just run the lein plugin:
+If the library is packaged with support for `lein-cljsasset`, then all you have to do is run the lein plugin:
 
     $ lein cljsasset
 
@@ -51,21 +50,32 @@ If you wish to change the default path of the output files, then add a `:cljsass
 
 ```clj
 :cljsasset {:js-output {:dir "resources/public/my-js"
-                          :file "my-assets.js"}
+                        :file "my-assets.js"}
             :css-output {:dir "resources/public/my-css"
-                           :file "my-assets.css"}}
+                         :file "my-assets.css"}}
+```
+
+###### Declaring JavaScript/CSS dependencies in your application's `project.clj`
+If the ClojureScript library you want to use has a dependency on a JavaScript library, but is not packaged with support for `lein-cljsasset`, then you can add a `:cljsasset` section yourself to fetch the library. For example, [Om](https://github.com/swannodette/om) has a dependency on `com.facebook/react`, which is deployed on Clojars. By inspecting the Maven artifact, you can find the path of the JavaScript asset you want to include. In this case it is `"react/react.js"` (or `"react/react.min.js"` for the minified version). To have `lein-cljsasset` include the JavaScript asset in your output file, you would add this to your `project.clj`:
+```clj
+:cljsasset {:js
+            ["react/react.js"]}
+```
+You can also declare dependencies on any of the JavaScript libraries available on [WebJars](http://www.webjars.org/). Using jQuery as an example, you would first include the WebJar in your dependencies section:
+`:dependencies [[org.webjars/jquery "2.1.1"]]` then you can click on the "Files" link on right column on the WebJars site to see the listing of files it provides. We will choose `META-INF/resources/webjars/jquery/2.1.1/jquery.min.js`, and add it to the `:cljsasset` section:
+```clj
+:cljsasset {:js
+            ["META-INF/resources/webjars/jquery/2.1.1/jquery.min.js"]}
 ```
 
 ## Examples
 [om-codemirror](https://github.com/pbostrom/om-codemirror) is a library that provides an Om wrapper around the CodeMirror text editor. It declares dependencies on several JavaScript and CSS assets provided by CodeMirror.
 
-[om-editor-app](https://github.com/pbostrom/om-editor-app) is an app that depends on `om-codemirror` and uses `lein-cljsasset` to fetch the JavaScript and CSS assets.
-
-Also see my fork of Om, which is just a single [commit](https://github.com/pbostrom/om/commit/dbcc4a2b567c851bb00763d98130558599e8ec5e) that adds a `:cljsasset` section. The `om-editor-app` listed above uses this version to avoid having to manage the `react.js` dependency directly.
+[om-editor-app](https://github.com/pbostrom/om-editor-app) is an app that depends on `om-codemirror` and uses `lein-cljsasset` to fetch the JavaScript and CSS assets. It also fetches the `"react/react.js"` asset provided by Om.
 
 ## TODO
-* Nested dependencies: Currently the plugin does not walk the entire dependency tree; it will only find assets declared by its direct dependencies.
-* File system dependencies: The plugin can only fetch assets on the classpath. It should allow fetching an asset from the filesystem.
+* Nested dependencies: Currently the plugin does not walk the entire dependency tree; it will only find the `:cljsasset` sections declared by its direct dependencies.
+* File system dependencies: The plugin can only fetch assets available on the classpath. It should allow fetching an asset from the filesystem.
 
 ## License
 
