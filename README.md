@@ -73,6 +73,9 @@ You can also declare dependencies on any of the JavaScript libraries available o
 
 [om-editor-app](https://github.com/pbostrom/om-editor-app) is an app that depends on `om-codemirror` and uses `lein-cljsasset` to fetch the JavaScript and CSS assets. It also fetches the `"react/react.js"` asset provided by Om.
 
+## Motivation
+Leveraging existing JavaScript libraries in ClojureScript is very powerful, but it requires a little bit of manual work to resolve these dependencies. One way to do this is using the `:preamble` option of the ClojureScript compiler, which is what is documented by Om. This still requires the end user to manage the path of the JavaScript asset, instead of the library. It also does not solve the problem for CSS dependencies. My hope was to provide a solution that shielded the end user from having to manage multiple JS/CSS dependencies, and instead use the plugin to output everything into a single CSS and JS file.
+
 ## TODO
 * Nested dependencies: Currently the plugin does not walk the entire dependency tree; it will only find the `:cljsasset` sections declared by its direct dependencies.
 * File system dependencies: The plugin can only fetch assets available on the classpath. It should allow fetching an asset from the filesystem.
