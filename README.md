@@ -76,6 +76,7 @@ You can also declare dependencies on any of the JavaScript libraries available o
 ## TODO
 * Nested dependencies: Currently the plugin does not walk the entire dependency tree; it will only find the `:cljsasset` sections declared by its direct dependencies.
 * File system dependencies: The plugin can only fetch assets available on the classpath. It should allow fetching an asset from the filesystem.
+* Support image assets: I need to think about this a little bit
 
 ## License
 
