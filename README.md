@@ -30,7 +30,7 @@ Now your users can use the lein-cljsasset plugin to fetch the dependencies and c
 
 #### Library users: Resolve and concatenate JavaScript and CSS dependencies into single file(s).
 
-Add the ClojureScript libraries you want to use to your `:dependencies` section in `project.clj`:
+Add the ClojureScript libraries you want to use to your `:dependencies` section in `project.clj`. This example uses [om-codemirror](https://github.com/pbostrom/om-codemirror):
 ```clj
 :dependencies [[om-codemirror "0.2.1"]]
 ```
